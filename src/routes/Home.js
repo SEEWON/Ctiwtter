@@ -22,7 +22,7 @@ const Home = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         await addDoc(collection(dbService,"ctweets"),{
-            ctweet,
+            text:ctweet,
             createdAt:Date.now(),
         });
         setCtweet("");
