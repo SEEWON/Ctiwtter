@@ -1,7 +1,9 @@
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import Ctweet from "components/Ctweet";
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { v4 } from "uuid";
 
 const Home = ({ userObj }) => {
   const [ctweet, setCtweet] = useState("");
@@ -18,12 +20,21 @@ const Home = ({ userObj }) => {
   }, []);
   const onSubmit = async (event) => {
     event.preventDefault();
-    await addDoc(collection(dbService, "ctweets"), {
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const attachmentRef = ref(storageService, `${userObj.uid}/${v4()}`);
+      const response = await uploadString(attachmentRef, attachment, "data_url");
+      attachmentUrl = await getDownloadURL(response.ref);
+    }
+    const ctweetObj = {
       text: ctweet,
       createdAt: Date.now(),
       creatorId: userObj.uid,
-    });
+      attachmentUrl,
+    };
+    await addDoc(collection(dbService, "ctweets"), ctweetObj);
     setCtweet("");
+    setAttachment("");
   };
   const onChange = (event) => {
     const {
