@@ -1,5 +1,6 @@
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
-import { dbService } from "fbase";
+import { deleteObject, ref } from "@firebase/storage";
+import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 
 const Ctweet = ({ ctweetObj, isOwner }) => {
@@ -9,6 +10,7 @@ const Ctweet = ({ ctweetObj, isOwner }) => {
     const ok = window.confirm("지우시겠습니까?");
     if (ok) {
       await deleteDoc(doc(dbService, `ctweets/${ctweetObj.id}`));
+      await deleteObject(ref(storageService, ctweetObj.attachmentUrl));
     }
   };
 
@@ -37,7 +39,7 @@ const Ctweet = ({ ctweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{ctweetObj.text}</h4>
-          {ctweetObj.attachmentUrl && <img src={ctweetObj.attachmentUrl} width="50px" height="50px" />}
+          {ctweetObj.attachmentUrl && <img src={ctweetObj.attachmentUrl} alt="" width="50px" height="50px" />}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>삭제</button>
