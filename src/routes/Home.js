@@ -8,7 +8,7 @@ import { v4 } from "uuid";
 const Home = ({ userObj }) => {
   const [ctweet, setCtweet] = useState("");
   const [ctweets, setCtweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
   useEffect(() => {
     onSnapshot(collection(dbService, "ctweets"), (snapshot) => {
       const ctweetArray = snapshot.docs.map((doc) => ({
