@@ -23,7 +23,9 @@ const Ctweet = ({ ctweetObj, isOwner }) => {
   };
   const onSubmit = async (event) => {
     event.preventDefault();
-    await updateDoc(doc(dbService, `ctweets/${ctweetObj.id}`), { text: newCtweet });
+    await updateDoc(doc(dbService, `ctweets/${ctweetObj.id}`), {
+      text: newCtweet,
+    });
     setEditing(false);
   };
   return (
@@ -31,7 +33,13 @@ const Ctweet = ({ ctweetObj, isOwner }) => {
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
-            <input type="text" placeholder="어떻게 수정할까요?" value={newCtweet} required onChange={onChange} />
+            <input
+              type="text"
+              placeholder="어떻게 수정할까요?"
+              value={newCtweet}
+              required
+              onChange={onChange}
+            />
             <input type="submit" value="완료" />
           </form>
           <button onClick={toggleEditing}>닫기</button>
@@ -39,7 +47,14 @@ const Ctweet = ({ ctweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{ctweetObj.text}</h4>
-          {ctweetObj.attachmentUrl && <img src={ctweetObj.attachmentUrl} alt="" width="50px" height="50px" />}
+          {ctweetObj.attachmentUrl && (
+            <img
+              src={ctweetObj.attachmentUrl}
+              alt=""
+              width="50px"
+              height="50px"
+            />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>삭제</button>

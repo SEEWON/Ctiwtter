@@ -23,7 +23,11 @@ const Home = ({ userObj }) => {
     let attachmentUrl = "";
     if (attachment !== "") {
       const attachmentRef = ref(storageService, `${userObj.uid}/${v4()}`);
-      const response = await uploadString(attachmentRef, attachment, "data_url");
+      const response = await uploadString(
+        attachmentRef,
+        attachment,
+        "data_url",
+      );
       attachmentUrl = await getDownloadURL(response.ref);
     }
     const ctweetObj = {
@@ -60,7 +64,13 @@ const Home = ({ userObj }) => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input value={ctweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120} />
+        <input
+          value={ctweet}
+          onChange={onChange}
+          type="text"
+          placeholder="What's on your mind?"
+          maxLength={120}
+        />
         <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="Ctweet" />
         {attachment && (
@@ -72,7 +82,11 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {ctweets.map((ctweet) => (
-          <Ctweet key={ctweet.id} ctweetObj={ctweet} isOwner={ctweet.creatorId === userObj.uid} />
+          <Ctweet
+            key={ctweet.id}
+            ctweetObj={ctweet}
+            isOwner={ctweet.creatorId === userObj.uid}
+          />
         ))}
       </div>
     </div>
