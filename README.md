@@ -3,4 +3,4 @@
 https://nomadcoders.co/nwitter
 
 ### Stacks
-React js / Firebase
+React js / Firebase(JS - v9)
