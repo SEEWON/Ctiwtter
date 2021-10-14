@@ -1,4 +1,4 @@
-## Nomad codrers "Twitter CloneCoding" Course
+## Nomad coders "Twitter CloneCoding" Course
 
 https://nomadcoders.co/nwitter
 
