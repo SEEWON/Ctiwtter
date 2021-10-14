@@ -11,6 +11,7 @@ const Profile = ({ refreshUser, userObj }) => {
   const onLogOutClick = () => {
     signOut(authService);
     history.push("/");
+    refreshUser();
   };
   const onChange = (event) => {
     const {
@@ -35,6 +36,7 @@ const Profile = ({ refreshUser, userObj }) => {
       console.log(doc.id, "=>", doc.data());
     });
   };
+
   useEffect(() => {
     getMyNweets();
   }, []);
